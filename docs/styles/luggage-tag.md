@@ -25,14 +25,23 @@ Everything below is a span width or a scale value. Nothing is drawn by eye.
 
 ```
 width      296px   = span(3), a quarter of the content width
-height     160px   = the top of the spacing scale
-ratio      1.85 : 1
+height     148px   = width / 2
+ratio      2 : 1   ← not chosen; measured
 
-hole       16px diameter, centre at x = 24, y = 80
+hole       16px diameter, centre at x = 24, y = 74
 chamfer    24px, on the two corners of the punch end only
 punch zone 0 → 48    no type may enter
 type block 48 → 272  = 224px wide
 ```
+
+**The 2:1 is a finding, not a preference.** Every standard manila shipping tag
+size is exactly 2:1 — the series runs `L = 2.25 + 0.5n` inches, verified
+arithmetically across all ten stock sizes. The idiom has one proportion and has
+had it for a century.
+
+There is a convergence worth noting: **2:1 is also MoMA's most-used image
+ratio** (`padding-top: 50%` in their production CSS). The tag and the museum
+already agree on the rectangle.
 
 The chamfer is 24 because the hole centre is 24; the corner cut and the hole
 share one datum, so the punched end reads as one decision instead of two.
@@ -40,12 +49,14 @@ share one datum, so the punched end reads as one decision instead of two.
 Larger tags keep the punch zone constant and grow the type block, so a row of
 mixed-width tags keeps its type on one line:
 
-| tag | width | type block |
+| tag | width × height | type block |
 |---|---|---|
-| span 2 | 192 | 120 |
-| span 3 | 296 | 224 |
-| span 4 | 400 | 328 |
-| span 6 | 608 | 536 |
+| span 2 | 192 × 96 | 120 |
+| span 3 | 296 × 148 | 224 |
+| span 4 | 400 × 200 | 328 |
+| span 6 | 608 × 304 | 536 |
+
+Every one is exactly 2:1 and every height is a multiple of 4.
 
 ## The type on a tag
 

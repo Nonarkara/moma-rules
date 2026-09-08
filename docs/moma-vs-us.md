@@ -17,7 +17,8 @@ failure mode as a dashboard that quietly drops a bad number.
 |---|---|
 | Spacing is a **0.4rem / 4px scale** — 22 of 22 layout values are multiples; the only non-multiples are hairlines | **II · The scale** |
 | **Hairline = `.1rem` (1px) solid.** Emphasis rules are .2/.3rem. Nothing heavier is used as a rule | **VIII · One hairline** |
-| **Achromatic.** 150 × `#000`, 54 × `#fff`, a grey ramp — and exactly **three** chromatic values in the entire stylesheet | our single-accent rule, stated harder than we state it |
+| **Achromatic.** ~204 achromatic declarations to **3** chromatic ones — and pure `#000`/`#fff`, not an off-black | our single-accent rule, stated harder than we state it |
+| **Two weights in use: 900 and 400**, with 900 dominating 141:60. Five ship; three go unused | MoMA is *heavy* type, not delicate — worth knowing before reading "hairline" as "faint" |
 | **Column formula** `calc(100%/n − gutter×(n−1)/n)`, gutter 24 or 32px | **V · One rhythm** — same instinct, one formula, no per-component invention |
 | **Fixed label field order**, always the same, never re-ordered per object | **VI · Same skeleton** |
 
@@ -31,7 +32,15 @@ The most striking confirmation is the negative space in their stylesheet. A
 
 ### 1. MoMA never sets uppercase. We set it everywhere.
 
-**Zero `text-transform` declarations in 876KB of production CSS.**
+**Zero `text-transform` declarations in 876KB of the museum site's production
+CSS**, and zero uppercase elements live.
+
+*Scope, stated precisely:* this is the **museum site**. The MoMA Design Store is
+a different system — it uses `text-transform` 155 times, and differs in weights,
+leading, and even its fallback stack (`Helvetica` vs `arial`). So the honest
+claim is not "MoMA never uppercases"; it is that **the institutional voice never
+uppercases, and the retail voice does.** Which of those a trading instrument
+should sound like is the actual question.
 
 Our canon specifies uppercase micro labels (`.t-micro { text-transform:
 uppercase }`) and uses them on every surface. MoMA does not do this at all. Where
@@ -118,3 +127,40 @@ The study marks its own gaps as `UNVERIFIED` rather than filling them — notabl
 whether physical gallery wall labels use the same field order as the website.
 The website order is solid; the wall order is not verified. That distinction is
 kept here rather than smoothed away.
+
+---
+
+## Two governance rules worth stealing outright
+
+The study's most transferable finding is not typographic. It is how MoMA
+*administers* a rule set across surfaces that genuinely differ.
+
+**1. Lock the majority, enumerate the exceptions in advance.**
+Roughly 70% of surfaces are locked to the house face with zero discretion —
+MoMA's own figure is 28 collection rotations locked. The other ~30% are free,
+but the free list is **named ahead of time**: 12 special exhibitions. Pentagram
+states the print twin as policy — **catalogues are exempt from the institutional
+identity**, deliberately, in writing.
+
+The failure mode this avoids is the one we have been living in: not "too strict"
+but *undeclared* exceptions. When a rule has no exception list, every surface
+negotiates its own, silently, at the moment of writing — which is exactly how 86
+spacing values happen.
+
+**2. Change is redrawing, not rupture.**
+Ninety years of redrawing one typeface. MoMA describes its own revisions as "3%
+changes". A rule set that is periodically thrown out and rewritten teaches
+people to wait out the current one.
+
+### How this repo implements both
+
+| MoMA's practice | Here |
+|---|---|
+| ~70% locked, no discretion | the ten laws, checked on every commit |
+| exceptions **enumerated in advance** | `/* moma-lint-disable-file */` — deliberately loud, greppable, so the exception list is `grep -rl moma-lint-disable-file` and is reviewable at any time |
+| exceptions are *named*, not ambient | the baseline file: every inherited violation is listed by file, rule and value — debt you can read, not debt you can only feel |
+| 3% changes, not rupture | the baseline **may only shrink**; `--update-baseline` refuses to write a larger one |
+
+The baseline is the enumerated-exception list. That is the whole design: MoMA
+does not pretend the exceptions do not exist, and it does not let them be
+invented at the moment of use. It writes them down first.
