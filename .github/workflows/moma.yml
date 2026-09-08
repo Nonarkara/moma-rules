@@ -1,0 +1,13 @@
+name: moma
+on: [push, pull_request]
+jobs:
+  laws:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      # The example page must obey the laws it publishes. If this fails,
+      # the rulebook is lying, which is worse than the codebase drifting.
+      - run: node lint/moma-lint.mjs examples --strict
+      - run: node lint/self-check.mjs

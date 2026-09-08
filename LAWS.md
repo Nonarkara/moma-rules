@@ -1,0 +1,188 @@
+# The Ten Laws
+
+> "MoMA rules dictate that everything has to be aligned and there should be no
+> loose edges to show that the builder is an amateur."
+> — Dr Non, 2026-08-20
+
+Rams gave Braun ten principles. These are ten laws for the screen. A principle
+is something you agree with. A law is something that fails your build.
+
+Every law below has a **check** — the rule id that enforces it. A law without a
+check is a wish, and wishes are why the last three MoMA passes did not hold.
+
+---
+
+## I. ONE ORIGIN
+
+*Every left edge on a page descends from a single origin value. Every right edge
+descends from its mirror. There is one horizontal origin per document, not one
+per component.*
+
+**Why.** A page's left margin is not a style, it is a datum. When two components
+establish the same intended margin by different mechanisms — one with `padding`,
+one with `border`, one with `margin` — they land in different places, because a
+border occupies layout space and padding of the same value does not.
+
+**The corollary that costs the most:** *a hairline may not occupy layout space.*
+A 1px `border` on a container pushes every child 1px inward. A 1px rule drawn
+with `box-shadow: inset`, `outline`, or a pseudo-element does not. Frame with
+shadow; reserve `border` for the rare case where the line is meant to displace.
+
+**Measured.** See [docs/why-lines-dont-align.md](docs/why-lines-dont-align.md):
+on a live production page, `.rams-masthead` set its origin with `padding-left:
+22px` and landed its children at x=22. `.rams-cell-grid` set the same intended
+origin with `border: 1px` and landed its children at x=23. 124 elements on one
+edge, 62 on the other, 1px apart, across every screen of the product.
+
+**Check** · `origin-mechanism` (static) · `near-miss` (runtime)
+
+---
+
+## II. THE SCALE
+
+*Spacing comes from a closed set of fifteen values. There is no sixteenth.*
+
+```
+0  4  8  12  16  20  24  32  40  48  64  80  96  120  160
+```
+
+**Why.** Two elements align when their values come from the same small set. They
+cannot align when the set is open. This is arithmetic, not taste: a codebase with
+86 distinct spacing values has 86 possible edges per axis, and no two of them
+were chosen to relate.
+
+**Measured.** daytraders `src/`: **86 distinct spacing values, 5,028 uses, 40.1%
+off any 4px grid** — including 1, 3, 5, 7, 9, 35, 37, 38, 95, 97, 118, 222px.
+day2 `app/src/`: 25 distinct, 37.1% off-grid.
+
+The scale is not evenly spaced on purpose. It is dense where decisions are
+frequent (4–24, the inside of a card) and sparse where they are rare (64–160,
+the space between sections). A linear scale wastes resolution at the top.
+
+**Check** · `spacing-scale`
+
+---
+
+## III. THREE SIZES
+
+*Three type sizes. Micro 11, body 14, display 32. A fourth size is a new
+typographic voice, and this design does not have a fourth voice.*
+
+Line-heights are on the 4-grid even though the sizes are not: 11/16, 14/20,
+32/36. Type sits on a rhythm even when its sizes do not.
+
+**Check** · `type-scale`
+
+---
+
+## IV. THE GRID FILLS
+
+*A grid of C columns holds N items where `N % C == 0`. Always.*
+
+**Why.** A 4-column grid with 7 items leaves one cell empty, and the eye reads
+the hole before it reads the content. The empty cell is the single most legible
+amateur mark on a page, because it is the one thing on screen that was clearly
+not decided.
+
+**The rule is: curate the universe to fit the grid, never pad the grid to fit
+the universe.** The 2026-08-20 pass took five deploys to learn this — 7 items in
+4 columns, then 8 in 4, then 8 in 3, before landing on 9 in 3.
+
+```
+ 7 items ÷ 4 cols = 4 + 3   ✗ one orphan
+ 8 items ÷ 4 cols = 4 + 4   ✓
+ 8 items ÷ 3 cols = 3+3+2   ✗ one orphan
+ 9 items ÷ 3 cols = 3+3+3   ✓
+12 items ÷ 3 cols           ✓   ÷ 4 cols ✓   ÷ 2 cols ✓   ÷ 6 cols ✓
+```
+
+Twelve is the friendliest count on a page: it divides by 2, 3, 4, and 6. Where
+you can choose the number of things, choose twelve.
+
+**Check** · `orphan-grid` (runtime)
+
+---
+
+## V. ONE RHYTHM PER PAGE
+
+*`repeat(auto-fit, minmax(Xpx, 1fr))` picks its own column count from X and the
+container width. Each distinct X is another rhythm. A page may use three: 160,
+220, 280. Not thirty-one.*
+
+**Measured.** daytraders uses **31 distinct minmax minimums**, which at a 1280px
+viewport produce **12 different column counts** — 11, 10, 9, 8, 7, 6, 5, 4, 3
+columns, stacked down one page. Sections whose columns disagree cannot have
+aligned interior edges. This is guaranteed by construction, not by carelessness.
+
+| minmax | 390px | 768px | 1024px | 1280px |
+|---|---|---|---|---|
+| 160 (tight)  | 2 | 4 | 5 | 7 |
+| 220 (normal) | 1 | 3 | 4 | 5 |
+| 280 (wide)   | 1 | 2 | 3 | 4 |
+
+Three densities, three rhythms, and a reader who can see the page is one object.
+
+**Check** · `grid-density`
+
+---
+
+## VI. SAME SKELETON
+
+*Every cell in a row has the same skeleton: same `min-height`, same number of
+lines, same slots in the same order. A cell that wraps to four lines beside cells
+of two makes the row look unplanned, because it was.*
+
+Long values get `text-overflow: ellipsis` and a `title`. The full string is not
+more important than the row.
+
+**Check** · `ragged-row` (runtime — flags sibling height spread > 6px)
+
+---
+
+## VII. NO NEAR MISS
+
+*Two edges are the same, or they are clearly different. Nothing between.*
+
+Delta 0 reads as alignment. Delta > 6px reads as an intentional offset. Delta
+1–6px reads as a failed attempt at alignment — and that band is precisely what
+the eye catches and calls amateur. It is invisible in code review and obvious on
+screen, which is why it survives every prose-only design pass.
+
+**Measured.** The production home page carries **856 near-miss edge pairs** at
+1280×900. The heaviest single pair is a 1px split affecting 186 elements.
+
+**Check** · `near-miss` (runtime)
+
+---
+
+## VIII. ONE HAIRLINE
+
+*One line weight (1px) and one line colour. A 2px border is a second design
+language arguing with the first.*
+
+**Check** · `hairline`
+
+---
+
+## IX. ZERO RADIUS
+
+*Corners are square. Not "subtle". Zero. True circles (`50%`) are exempt because
+a circle is a shape, not a softened rectangle.*
+
+**Check** · `radius-zero`
+
+---
+
+## X. NEVER SAY A NUMBER TWICE
+
+*A value appears once per screen. A chip reading "8 TODAY" above a list whose
+header reads "TODAY 8" is the build being lazy in public.*
+
+Hierarchy follows semantic weight: the thing the reader looks up by (the symbol,
+the name, the number) is the largest thing in the cell. The category label is
+metadata — a 9px eyebrow at 75% opacity, not a coloured button. When the label
+outweighs the datum, the hierarchy is inverted.
+
+**Check** · human review (this is the one law a machine cannot check, which is
+why it is last — and why the other nine are automated, so attention is left over
+for this one.)

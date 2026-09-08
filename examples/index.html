@@ -1,0 +1,421 @@
+<title>Dr Non's MoMA Rules</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* ─────────────────────────────────────────────────────────────────
+   Dark-first. Bare :root is the dark palette; light is the override.
+   ───────────────────────────────────────────────────────────────── */
+:root{
+  --ground:#0e0e0d; --surface:#161615; --sunk:#0a0a09;
+  --line:#2c2c2a; --line-soft:#1e1e1c;
+  --ink:#e9e8e4; --muted:#8a8a83; --dim:#5c5c56;
+  --amber:#ffd000; --wrong:#ff5a48; --right:#00c896;
+  --overlay:rgba(255,208,0,.10); --overlay-edge:rgba(255,208,0,.28);
+
+  --col:88px; --gutter:16px; --margin:24px; --content:1232px;
+  --span-2:192px; --span-3:296px; --span-4:400px; --span-6:608px;
+
+  --micro:11px; --body:14px; --display:32px;
+  --lh-micro:16px; --lh-body:20px; --lh-display:36px;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --ground:#faf9f6; --surface:#ffffff; --sunk:#f1efe9;
+    --line:#d6d3ca; --line-soft:#e6e3db;
+    --ink:#1a1a18; --muted:#6b6b63; --dim:#9a9a90;
+    --amber:#9a7c00; --wrong:#c2321f; --right:#00785a;
+    --overlay:rgba(154,124,0,.09); --overlay-edge:rgba(154,124,0,.26);
+  }
+}
+:root[data-theme="light"]{
+  --ground:#faf9f6; --surface:#ffffff; --sunk:#f1efe9;
+  --line:#d6d3ca; --line-soft:#e6e3db;
+  --ink:#1a1a18; --muted:#6b6b63; --dim:#9a9a90;
+  --amber:#9a7c00; --wrong:#c2321f; --right:#00785a;
+  --overlay:rgba(154,124,0,.09); --overlay-edge:rgba(154,124,0,.26);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:var(--body); line-height:var(--lh-body);
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-variant-numeric:tabular-nums}
+
+/* ── the page sits on the grid it describes ── */
+.page{max-width:var(--content); margin-inline:auto; padding-inline:var(--margin); position:relative}
+.rule{height:1px; background:var(--line); border:0; margin:0}
+
+/* ── grid overlay — proof the page obeys itself ── */
+#overlay{position:fixed; inset:0; pointer-events:none; z-index:90; opacity:0;
+  transition:opacity .18s ease; display:flex; justify-content:center}
+#overlay.on{opacity:1}
+#overlay .inner{width:100%; max-width:var(--content); padding-inline:var(--margin);
+  display:grid; grid-template-columns:repeat(12,1fr); gap:var(--gutter)}
+#overlay .c{background:var(--overlay); border-left:1px solid var(--overlay-edge);
+  border-right:1px solid var(--overlay-edge)}
+
+/* ── type ── */
+.micro{font-size:var(--micro); line-height:var(--lh-micro); letter-spacing:.09em;
+  text-transform:uppercase; color:var(--muted)}
+.display{font-size:var(--display); line-height:var(--lh-display); font-weight:600;
+  letter-spacing:-.02em; text-wrap:balance; margin:0}
+h2.display{font-size:var(--display)}
+p{margin:0; max-width:66ch}
+a{color:inherit}
+
+/* ── masthead ── */
+header.mast{padding-block:64px 24px}
+.mast .kicker{display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; margin-bottom:16px}
+.mast h1{font-size:clamp(32px,7vw,64px); line-height:1.02; font-weight:700;
+  letter-spacing:-.035em; margin:0}
+.mast .sub{margin-top:16px; color:var(--muted); max-width:56ch}
+.quote{margin-top:24px; padding-left:16px; border-left:1px solid var(--amber);
+  color:var(--ink); max-width:56ch}
+.quote cite{display:block; margin-top:8px; font-style:normal; color:var(--muted); font-size:var(--micro);
+  letter-spacing:.09em; text-transform:uppercase}
+
+/* ── sections ── */
+section{padding-block:48px; border-top:1px solid var(--line-soft)}
+.sec-head{display:grid; grid-template-columns:64px 1fr; gap:var(--gutter); align-items:baseline;
+  margin-bottom:24px}
+.numeral{font-size:var(--display); line-height:var(--lh-display); font-weight:600;
+  color:var(--amber); letter-spacing:0}
+.sec-head .t h2{margin:0}
+.sec-head .t .why{margin-top:8px; color:var(--muted)}
+
+/* ── the four legal grids ── */
+.grid-sixths{display:grid; gap:var(--gutter);
+  grid-template-columns:repeat(auto-fit,minmax(var(--span-2),1fr))}
+.grid-quarters{display:grid; gap:var(--gutter);
+  grid-template-columns:repeat(auto-fit,minmax(var(--span-3),1fr))}
+.grid-thirds{display:grid; gap:var(--gutter);
+  grid-template-columns:repeat(auto-fit,minmax(var(--span-4),1fr))}
+.grid-halves{display:grid; gap:var(--gutter);
+  grid-template-columns:repeat(auto-fit,minmax(var(--span-6),1fr))}
+
+.cell{background:var(--surface); padding:16px; min-height:96px;
+  display:flex; flex-direction:column; justify-content:space-between;
+  box-shadow:inset 0 0 0 1px var(--line)}
+.cell .v{font-size:var(--display); line-height:var(--lh-display); font-weight:500}
+
+/* ── the scale, drawn to scale ── */
+.scale{display:flex; flex-direction:column; gap:4px}
+.scale .row{display:grid; grid-template-columns:48px 1fr; gap:var(--gutter); align-items:center}
+.scale .bar{height:8px; background:var(--amber)}
+.scale .row.off .bar{background:var(--wrong)}
+.scale .row.off .n{color:var(--wrong)}
+.n{font-size:var(--micro); line-height:var(--lh-micro); text-align:right; color:var(--muted)}
+
+/* ── the 1px exhibit ── */
+.exhibit{display:grid; gap:var(--gutter); grid-template-columns:repeat(auto-fit,minmax(var(--span-3),1fr))}
+.demo{background:var(--sunk); padding:24px}
+.demo .tag{display:flex; gap:8px; align-items:center; margin-bottom:16px}
+.dot{width:8px; height:8px}
+.dot.bad{background:var(--wrong)} .dot.good{background:var(--right)}
+.masthead-sim{padding-left:24px; padding-block:8px; color:var(--muted);
+  font-size:var(--micro); letter-spacing:.09em; text-transform:uppercase}
+.hg{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line)}
+.hg > div{background:var(--surface); padding:12px; font-size:var(--micro); color:var(--muted)}
+.hg-wrong{border:1px solid var(--line)}
+.hg-right{box-shadow:inset 0 0 0 1px var(--line)}
+.readout{margin-top:16px; font-size:var(--micro); line-height:var(--lh-micro);
+  display:flex; justify-content:space-between; gap:16px; padding-top:8px;
+  border-top:1px solid var(--line)}
+.readout b{font-weight:600}
+.readout .bad{color:var(--wrong)} .readout .good{color:var(--right)}
+
+/* ── near-miss band ── */
+.band{display:grid; grid-template-columns:repeat(auto-fit,minmax(var(--span-3),1fr)); gap:var(--gutter)}
+.band .b{padding:16px; background:var(--surface); box-shadow:inset 0 0 0 1px var(--line)}
+.band .b .hd{font-size:var(--display); line-height:var(--lh-display); font-weight:600}
+.band .b.mid{box-shadow:inset 0 0 0 1px var(--wrong)}
+.band .b.mid .hd{color:var(--wrong)}
+
+/* ── table ── */
+.tbl{width:100%; border-collapse:collapse; font-size:var(--micro); line-height:var(--lh-micro)}
+.tbl th,.tbl td{text-align:right; padding:8px 12px; border-bottom:1px solid var(--line-soft)}
+.tbl th:first-child,.tbl td:first-child{text-align:left}
+.tbl th{color:var(--muted); letter-spacing:.09em; text-transform:uppercase; font-weight:500}
+.tbl td{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums}
+.tbl .yes{color:var(--right)} .tbl .no{color:var(--wrong)}
+.scroller{overflow-x:auto}
+
+/* ── luggage tag, to the published geometry ── */
+.tags{display:flex; gap:var(--gutter); flex-wrap:wrap}
+.tag-obj{position:relative; width:var(--span-3); height:160px; background:var(--surface);
+  box-shadow:inset 0 0 0 1px var(--line); padding:16px 24px 16px 48px;
+  display:flex; flex-direction:column; justify-content:center; gap:4px;
+  clip-path:polygon(24px 0, 100% 0, 100% 100%, 24px 100%, 0 calc(50% + 12px), 0 calc(50% - 12px));
+}
+.tag-obj .hole{position:absolute; left:16px; top:50%; width:16px; height:16px;
+  margin-top:-8px; border-radius:50%; background:var(--ground);
+  box-shadow:inset 0 0 0 1px var(--line)}
+.tag-obj .id{font-size:var(--display); line-height:var(--lh-display); font-weight:600; letter-spacing:-.02em}
+.tag-obj .datum{font-size:var(--display); line-height:var(--lh-display); font-weight:500; color:var(--amber)}
+.tag-obj.kraft{background:color-mix(in srgb,#c8b89a 6%, var(--surface))}
+
+/* ── controls ── */
+.controls{position:fixed; right:24px; bottom:24px; z-index:100; display:flex; gap:8px}
+.btn{font-family:inherit; font-size:var(--micro); letter-spacing:.09em; text-transform:uppercase;
+  color:var(--ink); background:var(--surface); border:0; box-shadow:inset 0 0 0 1px var(--line);
+  padding:0 16px; min-height:44px; cursor:pointer}
+.btn:hover{box-shadow:inset 0 0 0 1px var(--amber)}
+.btn:focus-visible{outline:1px solid var(--amber); outline-offset:2px}
+.btn[aria-pressed="true"]{color:var(--amber); box-shadow:inset 0 0 0 1px var(--amber)}
+
+footer{padding-block:48px 96px; border-top:1px solid var(--line-soft); color:var(--muted)}
+@media (max-width:767px){
+  :root{--margin:16px}
+  .sec-head{grid-template-columns:40px 1fr}
+  .numeral{font-size:var(--body); line-height:var(--lh-body)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div id="overlay" aria-hidden="true"><div class="inner">
+  <div class="c"></div><div class="c"></div><div class="c"></div><div class="c"></div>
+  <div class="c"></div><div class="c"></div><div class="c"></div><div class="c"></div>
+  <div class="c"></div><div class="c"></div><div class="c"></div><div class="c"></div>
+</div></div>
+
+<div class="page">
+
+  <header class="mast">
+    <div class="kicker">
+      <span class="micro">Dr Non · Nonarkara</span>
+      <span class="micro mono">12 × 88 + 11 × 16 + 2 × 24 = 1280</span>
+    </div>
+    <h1>The MoMA Rules</h1>
+    <p class="sub">Ten laws for a screen that does not show its builder was an
+      amateur. Every law has a check that fails the build, because the previous
+      three versions of these rules were prose, and prose does not execute.</p>
+    <blockquote class="quote">
+      “MoMA rules dictate that everything has to be aligned and there should be
+      no loose edges to show that the builder is an amateur.”
+      <cite>Dr Non · 2026-08-20</cite>
+    </blockquote>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <div class="numeral mono">I</div>
+      <div class="t">
+        <h2 class="display">One origin</h2>
+        <p class="why">Every left edge on a page descends from one value. The
+          corollary costs the most: <b>a hairline may not occupy layout space.</b>
+          A 1px border pushes every child inward. The same line drawn with
+          <span class="mono">box-shadow: inset</span> does not.</p>
+      </div>
+    </div>
+
+    <div class="exhibit">
+      <div class="demo">
+        <div class="tag"><span class="dot bad"></span><span class="micro">Wrong · border</span></div>
+        <div class="masthead-sim" id="mastA">masthead · padding-left 24</div>
+        <div class="hg hg-wrong" id="gridA"><div>cell</div><div>cell</div></div>
+        <div class="readout">
+          <span class="micro">child offset from origin</span>
+          <span class="mono bad"><b id="offA">—</b></span>
+        </div>
+      </div>
+      <div class="demo">
+        <div class="tag"><span class="dot good"></span><span class="micro">Right · inset shadow</span></div>
+        <div class="masthead-sim">masthead · padding-left 24</div>
+        <div class="hg hg-right" id="gridB"><div>cell</div><div>cell</div></div>
+        <div class="readout">
+          <span class="micro">child offset from origin</span>
+          <span class="mono good"><b id="offB">—</b></span>
+        </div>
+      </div>
+    </div>
+    <p class="micro" style="margin-top:16px">Measured in your browser, just now — not asserted.
+      Both frames look identical. Only one leaves its children on the page's origin.</p>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="numeral mono">II</div>
+      <div class="t">
+        <h2 class="display">The scale</h2>
+        <p class="why">Fifteen spacing values. There is no sixteenth. Dense where
+          decisions are frequent, sparse where they are rare — a linear scale
+          wastes resolution at the top.</p>
+      </div>
+    </div>
+    <div class="scale" id="scale"></div>
+    <p class="micro" style="margin-top:16px">
+      In red: values found in production that are on no scale —
+      <span class="mono">1 · 3 · 5 · 7 · 9 · 35 · 37 · 38 · 95 · 97 · 118 · 222</span>.
+      Measured across <span class="mono">src/</span>: 86 distinct spacing values, 40.1% off any 4px grid.
+    </p>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="numeral mono">IV</div>
+      <div class="t">
+        <h2 class="display">The grid fills</h2>
+        <p class="why">A grid of C columns holds N items where N mod C is zero.
+          Twelve is the friendliest count on a page: it divides by 2, 3, 4 and 6.
+          Curate the universe to fit the grid, never pad the grid to fit the universe.</p>
+      </div>
+    </div>
+    <div class="grid-quarters" id="fills"></div>
+    <p class="micro" style="margin-top:16px">Twelve cells, four columns, three full rows.
+      Resize the window: at every width this grid resolves to 1, 2, 3 or 4 columns — all divisors
+      of twelve — so it never leaves an orphan.</p>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="numeral mono">V</div>
+      <div class="t">
+        <h2 class="display">One rhythm per page</h2>
+        <p class="why">The only legal <span class="mono">minmax()</span> minimums are
+          the span widths of the master grid. They are derived, not chosen — and
+          because they are span widths, every one resolves to a column count that
+          divides twelve at every viewport.</p>
+      </div>
+    </div>
+    <div class="scroller">
+      <table class="tbl">
+        <thead><tr><th>minmax</th><th>390</th><th>768</th><th>1024</th><th>1280</th><th>1440</th><th>divides 12</th></tr></thead>
+        <tbody>
+          <tr><td>88 · span 1</td><td>3</td><td>7</td><td>9</td><td>12</td><td>13</td><td class="no">no</td></tr>
+          <tr><td>192 · span 2</td><td>1</td><td>3</td><td>4</td><td>6</td><td>6</td><td class="yes">yes</td></tr>
+          <tr><td>296 · span 3</td><td>1</td><td>2</td><td>3</td><td>4</td><td>4</td><td class="yes">yes</td></tr>
+          <tr><td>400 · span 4</td><td>1</td><td>1</td><td>2</td><td>3</td><td>3</td><td class="yes">yes</td></tr>
+          <tr><td>608 · span 6</td><td>1</td><td>1</td><td>1</td><td>2</td><td>2</td><td class="yes">yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="micro" style="margin-top:16px">Production today uses 31 distinct minimums, producing
+      12 different column counts on one 1280px page. Sections at 5, 7 and 9 columns cannot share an
+      interior edge with anything.</p>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="numeral mono">VII</div>
+      <div class="t">
+        <h2 class="display">No near miss</h2>
+        <p class="why">Two edges are the same, or they are clearly different.
+          The band between is what the eye catches and calls amateur — and it is
+          invisible in code review, which is why prose-only design passes never
+          caught it.</p>
+      </div>
+    </div>
+    <div class="band">
+      <div class="b"><div class="hd mono">0</div><div class="micro" style="margin-top:8px">Aligned</div>
+        <p class="micro" style="margin-top:8px;text-transform:none;letter-spacing:0">Reads as one decision.</p></div>
+      <div class="b mid"><div class="hd mono">1–6</div><div class="micro" style="margin-top:8px">The amateur band</div>
+        <p class="micro" style="margin-top:8px;text-transform:none;letter-spacing:0">Reads as a failed attempt at alignment. 856 pairs on the production home page.</p></div>
+      <div class="b"><div class="hd mono">&gt;6</div><div class="micro" style="margin-top:8px">Deliberate offset</div>
+        <p class="micro" style="margin-top:8px;text-transform:none;letter-spacing:0">Reads as intended. Also fine.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="numeral mono">—</div>
+      <div class="t">
+        <h2 class="display">The luggage tag</h2>
+        <p class="why">A style that fits the laws. A tag is a value attached to a
+          source — the same job a museum wall label does. One datum, one hole,
+          one provenance line. The chamfer and the hole centre share a datum
+          (24px), so the punched end reads as one decision.</p>
+      </div>
+    </div>
+    <div class="tags">
+      <div class="tag-obj"><span class="hole"></span>
+        <div class="micro">BTC perpetual</div>
+        <div class="datum mono">+5.04%</div>
+        <div class="micro" style="text-transform:none;letter-spacing:0">funding, annualised · Binance · 8h · 2026-09-05</div>
+      </div>
+      <div class="tag-obj kraft"><span class="hole"></span>
+        <div class="micro">VIX ≥ 30 → SET, 90d</div>
+        <div class="datum mono">+10.98pp</div>
+        <div class="micro" style="text-transform:none;letter-spacing:0">edge vs baseline · 75.2% hit · n=601</div>
+      </div>
+    </div>
+    <p class="micro" style="margin-top:16px">296 × 160 · hole ⌀16 at x=24 · chamfer 24 · type block 48→272.
+      Never rotated: a tag tilted 3° to look pinned creates edges that are neither aligned nor clearly different.</p>
+  </section>
+
+  <footer>
+    <p class="micro">Press <b class="mono">G</b> to overlay the twelve columns and check this page against its own law.
+      Measurements taken on day.nonarkara.org at 1280×900, 2026-09-08, 1,793 laid-out elements.</p>
+  </footer>
+</div>
+
+<div class="controls">
+  <button class="btn" id="grid" aria-pressed="false">Grid</button>
+  <button class="btn" id="theme">Theme</button>
+</div>
+
+<script>
+(function(){
+  // ── the 1px exhibit measures itself ──
+  function measure(){
+    var a=document.getElementById("gridA"), b=document.getElementById("gridB");
+    if(!a||!b) return;
+    var oa=a.firstElementChild.getBoundingClientRect().left-a.getBoundingClientRect().left;
+    var ob=b.firstElementChild.getBoundingClientRect().left-b.getBoundingClientRect().left;
+    document.getElementById("offA").textContent="+"+oa.toFixed(0)+"px";
+    document.getElementById("offB").textContent=ob.toFixed(0)+"px";
+  }
+
+  // ── the scale, drawn to scale ──
+  var SPACE=[0,4,8,12,16,20,24,32,40,48,64,80,96,120,160];
+  var OFF=[3,5,7,9,35,38];
+  var rows=SPACE.map(function(v){return {v:v,off:false};})
+    .concat(OFF.map(function(v){return {v:v,off:true};}))
+    .sort(function(x,y){return x.v-y.v;});
+  var s=document.getElementById("scale");
+  rows.forEach(function(r){
+    var d=document.createElement("div");
+    d.className="row"+(r.off?" off":"");
+    d.innerHTML='<div class="n mono">'+r.v+'</div><div class="bar" style="width:'+
+      Math.max(1,r.v)+'px"></div>';
+    s.appendChild(d);
+  });
+
+  // ── twelve cells that fill ──
+  var items=[["I","one origin"],["II","the scale"],["III","three sizes"],["IV","the grid fills"],
+    ["V","one rhythm"],["VI","same skeleton"],["VII","no near miss"],["VIII","one hairline"],
+    ["IX","zero radius"],["X","never twice"],["+","checked in CI"],["=","twelve"]];
+  var f=document.getElementById("fills");
+  items.forEach(function(it){
+    var d=document.createElement("div"); d.className="cell";
+    d.innerHTML='<div class="v mono">'+it[0]+'</div><div class="micro">'+it[1]+'</div>';
+    f.appendChild(d);
+  });
+
+  // ── controls ──
+  var ov=document.getElementById("overlay"), gb=document.getElementById("grid");
+  function toggleGrid(){
+    var on=ov.classList.toggle("on");
+    gb.setAttribute("aria-pressed",on?"true":"false");
+  }
+  gb.addEventListener("click",toggleGrid);
+  document.addEventListener("keydown",function(e){
+    if(e.key==="g"||e.key==="G"){ if(!/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)) toggleGrid(); }
+  });
+  document.getElementById("theme").addEventListener("click",function(){
+    var r=document.documentElement;
+    var dark=r.getAttribute("data-theme")==="dark" ||
+      (!r.getAttribute("data-theme") && !window.matchMedia("(prefers-color-scheme: light)").matches);
+    r.setAttribute("data-theme",dark?"light":"dark");
+    measure();
+  });
+
+  measure();
+  window.addEventListener("resize",measure);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(measure);
+})();
+</script>

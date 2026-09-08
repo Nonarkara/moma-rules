@@ -1,0 +1,14 @@
+{
+  "name": "moma-rules",
+  "version": "1.0.0",
+  "description": "Dr Non's MoMA rules — ten enforceable layout laws, with the checks that fail the build",
+  "type": "module",
+  "bin": { "moma-lint": "./lint/moma-lint.mjs" },
+  "scripts": {
+    "lint": "node lint/moma-lint.mjs .",
+    "check": "node lint/self-check.mjs"
+  },
+  "files": ["lint", "audit", "LAWS.md", "docs"],
+  "license": "UNLICENSED",
+  "private": true
+}
