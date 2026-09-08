@@ -49,8 +49,20 @@ mixed-width tags keeps its type on one line:
 
 ## The type on a tag
 
-Borrowed directly from museum label practice: the fields are always the same,
-always in the same order, and the reader learns the order once.
+Borrowed from museum label practice — and specifically from MoMA's own field
+order, measured on their collection records: **Title → Date → Medium →
+Location**, then Medium / Dimensions / Credit / Object number / Department. The
+fields are always the same, always in that order, and the reader learns the
+order once.
+
+Their punctuation conventions come with it, because they are free and they are
+already familiar to anyone who reads labels:
+
+- the citation string is `Artist. Title. Date` — **periods**, not commas or pipes
+- **en dash** for spans (`1853–1890`, `10:30 a.m.–5:30 p.m.`); a hyphen only for
+  elided dates (`1976-77`)
+- **titles italic, always**; names and all metadata roman
+- the year is omitted when it is the current year
 
 ```
 ┌────────────────────────────────────┐

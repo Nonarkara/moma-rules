@@ -63,13 +63,20 @@ the space between sections). A linear scale wastes resolution at the top.
 
 ---
 
-## III. THREE SIZES
+## III. SIZE AND LEADING ARE ONE TOKEN
 
-*Three type sizes. Micro 11, body 14, display 32. A fourth size is a new
-typographic voice, and this design does not have a fourth voice.*
+*Three type sizes — micro 11/16, body 14/20, display 32/36. A size may never be
+chosen independently of its leading.*
 
-Line-heights are on the 4-grid even though the sizes are not: 11/16, 14/20,
-32/36. Type sits on a rhythm even when its sizes do not.
+The count is ours (it is Rams, not MoMA — see
+[docs/moma-vs-us.md](docs/moma-vs-us.md)). The **binding** is MoMA's, and it is
+the part that actually protects the rhythm: measured on moma.org, type is set
+solid, with only two leading ratios in the entire production stylesheet (1.0 and
+1.3333) and ~86% of text at 1.0. Size and leading derive from one token there,
+so no one can pick a size and leave the leading behind.
+
+Line-heights are on the 4-grid even though the sizes are not. Type sits on the
+rhythm even when its sizes do not.
 
 **Check** · `type-scale`
 
@@ -159,6 +166,12 @@ screen, which is why it survives every prose-only design pass.
 
 *One line weight (1px) and one line colour. A 2px border is a second design
 language arguing with the first.*
+
+MoMA holds the same ratio and is worth quoting as precedent: rules are `.1rem`
+(1px) solid; `.2rem` and `.3rem` exist only as deliberate emphasis, never as a
+default border. And the surface they sit on is achromatic — 876KB of production
+CSS containing **exactly three chromatic values**, because the colour is
+supposed to be in the art, not the chrome.
 
 **Check** · `hairline`
 
