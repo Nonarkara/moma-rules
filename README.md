@@ -12,6 +12,12 @@ rules are **arithmetic and checks**, not advice.
 **[→ The demonstration page](examples/index.html)** · **[→ The Ten Laws](LAWS.md)** ·
 **[→ Why the lines still don't align](docs/why-lines-dont-align.md)**
 
+> **Before the rules — [`BUILDER.md`](BUILDER.md): how this repository expects you to work.**
+> Build something rough enough to tear apart. Imagine a human doing the job before you
+> prompt an agent to do it. Give the agent the real source material, not a description of
+> it. Test, because a hypothesis proves nothing. Have a second, different agent look for
+> the flaw. The law in this repository is the floor, not the work.
+
 ---
 
 ## The short version
