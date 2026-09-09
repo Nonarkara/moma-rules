@@ -7,6 +7,12 @@
 Rams gave Braun ten principles. These are ten laws for the screen. A principle
 is something you agree with. A law is something that fails your build.
 
+Where "MoMA rules" comes from, and the century of design history it stands
+on — Mondrian's closed vocabulary, the Bauhaus's insistence that a design
+survive being executed by someone else, Le Corbusier's derived module, Mies's
+square corner, Rams's ten counted principles, MoMA's own uncodified house
+style — is in [docs/design-history.md](docs/design-history.md).
+
 Every law below has a **check** — the rule id that enforces it. A law without a
 check is a wish, and wishes are why the last three MoMA passes did not hold.
 

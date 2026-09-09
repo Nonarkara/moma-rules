@@ -11,7 +11,7 @@ rules are **arithmetic and checks**, not advice.
 
 **[→ The demonstration page](examples/index.html)** · **[→ The Ten Laws](LAWS.md)** ·
 **[→ Why the lines still don't align](docs/why-lines-dont-align.md)** ·
-**[→ Figures](docs/figures/)**
+**[→ Figures](docs/figures/)** · **[→ Why MoMA](docs/design-history.md)**
 
 ![A Law Without a Check Is a Wish](docs/figures/fig-07-law-without-a-check.png)
 
@@ -123,6 +123,7 @@ audit/near-miss.browser.js   runtime checker
 docs/grid.md                 the grid, fully computed
 docs/why-lines-dont-align.md the forensic report
 docs/figures/                the six plates, one per law
+docs/design-history.md       why MoMA — Mondrian to Rams to moma.org
 docs/styles/luggage-tag.md   a style that fits the laws
 docs/moma-study.md           what MoMA actually does (primary research)
 examples/index.html          the demonstration page — obeys its own laws

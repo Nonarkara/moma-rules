@@ -3,7 +3,9 @@
 The rules in this repo are named after MoMA. That made it worth finding out what
 MoMA actually does, rather than repeating folklore about it. The primary research
 is in [moma-study.md](moma-study.md) — measured from moma.org's production CSS
-and its collection records, not from design blogs.
+and its collection records, not from design blogs. For the history behind why
+"MoMA" is the right name at all — Mondrian to the Bauhaus to Le Corbusier to
+Mies to Rams to MoMA's own collection — see [design-history.md](design-history.md).
 
 Some of it confirms the canon. Some of it contradicts it. Both are recorded here,
 because a rulebook that quietly drops its own disconfirming evidence is the same
