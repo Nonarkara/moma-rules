@@ -3,6 +3,8 @@
 Nothing on this page is a preference. Every number is derived from four
 starting values, and the derivation is checkable.
 
+![The Grid, Computed](figures/fig-04-the-grid-computed.png)
+
 ## The four values
 
 ```

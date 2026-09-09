@@ -10,7 +10,10 @@ back. This repository is the fourth attempt, and the difference is that here the
 rules are **arithmetic and checks**, not advice.
 
 **[→ The demonstration page](examples/index.html)** · **[→ The Ten Laws](LAWS.md)** ·
-**[→ Why the lines still don't align](docs/why-lines-dont-align.md)**
+**[→ Why the lines still don't align](docs/why-lines-dont-align.md)** ·
+**[→ Figures](docs/figures/)**
+
+![A Law Without a Check Is a Wish](docs/figures/fig-07-law-without-a-check.png)
 
 ---
 
@@ -97,6 +100,18 @@ of 12 at 390 / 768 / 1024 / 1280 / 1440. A rulebook with a wrong number in it
 teaches the wrong number to everyone who reads it. CI runs this, and also lints
 the demonstration page — if the example ever breaks its own laws, the build fails.
 
+## The six plates
+
+Each law's arithmetic, plated:
+
+| | | |
+|---|---|---|
+| [Fig. 02 · One Origin](docs/figures/fig-02-one-origin.png) | [Fig. 03 · Close the Set](docs/figures/fig-03-close-the-set.png) | [Fig. 04 · The Grid, Computed](docs/figures/fig-04-the-grid-computed.png) |
+| [Fig. 05 · Curate to Fit the Grid](docs/figures/fig-05-curate-to-fit-the-grid.png) | [Fig. 06 · No Near Miss](docs/figures/fig-06-no-near-miss.png) | [Fig. 07 · A Law Without a Check Is a Wish](docs/figures/fig-07-law-without-a-check.png) |
+
+Plated in [LAWS.md](LAWS.md) beside the law each one enforces. Fig. 01 (the
+ten-law overview) opens [LAWS.md](LAWS.md) itself.
+
 ## Layout
 
 ```
@@ -107,6 +122,7 @@ lint/self-check.mjs          proves the published arithmetic
 audit/near-miss.browser.js   runtime checker
 docs/grid.md                 the grid, fully computed
 docs/why-lines-dont-align.md the forensic report
+docs/figures/                the six plates, one per law
 docs/styles/luggage-tag.md   a style that fits the laws
 docs/moma-study.md           what MoMA actually does (primary research)
 examples/index.html          the demonstration page — obeys its own laws
