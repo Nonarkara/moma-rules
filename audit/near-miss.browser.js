@@ -10,7 +10,8 @@
  * pair 1-6px apart reads as a failed attempt at alignment. That band is the
  * amateur mark. It is invisible in code review and obvious on screen.
  *
- * Paste into any console, or run via audit/near-miss.mjs (Playwright).
+ * Paste into any console. There is no programmatic runner yet, which is why
+ * this half is absent from CI — see docs/law-to-check.md.
  * Returns a report object; also logs a readable table.
  */
 (function moma(NEAR_MISS = 6, MIN_SHARE = 2) {

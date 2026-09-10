@@ -7,7 +7,7 @@
  * a fourth type size, a non-zero radius, a double hairline.
  *
  * The other half (near-miss edges, orphan grid cells, unequal cell heights)
- * is only decidable once the page is laid out — see audit/near-miss.mjs.
+ * is only decidable once the page is laid out — see audit/near-miss.browser.js.
  *
  * RATCHET: a legacy codebase has thousands of violations. Blocking on all of
  * them means the rule gets disabled within a day. Instead we record a baseline

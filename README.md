@@ -12,6 +12,15 @@ rules are **arithmetic and checks**, not advice.
 **[→ The demonstration page](examples/index.html)** · **[→ The Ten Laws](LAWS.md)** ·
 **[→ Why the lines still don't align](docs/why-lines-dont-align.md)**
 
+> **[`docs/law-to-check.md`](docs/law-to-check.md) — the laws audited against their
+> own checks (2026-09-10).** Six real machine checks, one declared-unimplemented,
+> four laws outside CI, and until this audit two checks that contradicted the law
+> they enforce. A page obeying Law V failed the build. Read it before trusting any
+> claim of enforcement on this page.
+>
+> **v2 is proposed, not adopted:** [`docs/proposals/v2-architecture.md`](docs/proposals/v2-architecture.md)
+> · study deck: [`docs/deck/`](docs/deck/)
+
 > **Before the rules — [`BUILDER.md`](BUILDER.md): how this repository expects you to work.**
 > Build something rough enough to tear apart. Imagine a human doing the job before you
 > prompt an agent to do it. Give the agent the real source material, not a description of
@@ -28,7 +37,7 @@ rules are **arithmetic and checks**, not advice.
 | **Spacing** | a closed set of 15 values — `0 4 8 12 16 20 24 32 40 48 64 80 96 120 160` |
 | **Type** | three sizes — 11 / 14 / 32, leading 16 / 20 / 36 |
 | **Grid** | 12 × 88 + 11 × 16 + 2 × 24 = **1280** |
-| **Densities** | only span widths — 192 / 296 / 400 / 608 |
+| **Densities** | only span widths — 192 / 296 / 400 / 608 (Law V said 160/220/280 until 2026-09-10) |
 | **Hairline** | 1px, one colour, **and it never occupies layout space** |
 | **Radius** | 0 (true circles exempt) |
 
@@ -94,14 +103,26 @@ it is touched, and nobody has to stop and fix 2,000 things first.
 Every number published in these docs is recomputed from the source of truth:
 
 ```bash
-node lint/self-check.mjs
+node lint/self-check.mjs    # is the arithmetic internally consistent?
+node lint/laws-check.mjs    # does the prose agree with the arithmetic?
 ```
 
-It re-derives the page arithmetic, proves every divisor of 12 yields an integer
-span that refills the row, and confirms all four densities resolve to a divisor
-of 12 at 390 / 768 / 1024 / 1280 / 1440. A rulebook with a wrong number in it
-teaches the wrong number to everyone who reads it. CI runs this, and also lints
-the demonstration page — if the example ever breaks its own laws, the build fails.
+`self-check` re-derives the page arithmetic, proves every divisor of 12 yields an
+integer span that refills the row, and confirms all four densities resolve to a
+divisor of 12 at 390 / 768 / 1024 / 1280 / 1440.
+
+`laws-check` exists because that was not enough. `self-check` verifies
+`scale.mjs` against itself and never opened `LAWS.md` — so it reported "all
+derivations hold" for as long as Law V mandated three density values that
+`scale.mjs` names as counter-examples and the linter fails on sight. A check that
+cannot see the document it protects is not a check. `laws-check` reads the prose
+and asserts that every check id named in `LAWS.md` is implemented, every value
+the laws quote as legal is legal, every cell of Law V's column-count table
+matches the formula, and no document points at a file that does not exist.
+
+A rulebook with a wrong number in it teaches the wrong number to everyone who
+reads it. CI runs all three, and also lints the demonstration page — if the
+example ever breaks its own laws, the build fails.
 
 ## Layout
 
@@ -110,11 +131,16 @@ LAWS.md                      the ten laws, each with its check
 lint/scale.mjs               the single source of numeric truth
 lint/moma-lint.mjs           static checker + ratchet
 lint/self-check.mjs          proves the published arithmetic
-audit/near-miss.browser.js   runtime checker
+lint/laws-check.mjs          proves the prose matches the arithmetic
+audit/near-miss.browser.js   runtime checker (console paste — not yet in CI)
 docs/grid.md                 the grid, fully computed
 docs/why-lines-dont-align.md the forensic report
+docs/law-to-check.md         every law audited against its own check
 docs/styles/luggage-tag.md   a style that fits the laws
 docs/moma-study.md           what MoMA actually does (primary research)
+docs/moma-vs-us.md           MoMA observed vs. our deliberate divergences
+docs/deck/                   the MoMA Rules 2.0 study deck, slide by slide
+docs/proposals/              proposed changes — filed, not in force
 examples/index.html          the demonstration page — obeys its own laws
 ```
 

@@ -11,3 +11,7 @@ jobs:
       # the rulebook is lying, which is worse than the codebase drifting.
       - run: node lint/moma-lint.mjs examples --strict
       - run: node lint/self-check.mjs
+      # self-check proves scale.mjs is consistent with itself. It never read
+      # LAWS.md, which is how Law V spent its life mandating three density
+      # values the linter fails. This reads the prose against the code.
+      - run: node lint/laws-check.mjs

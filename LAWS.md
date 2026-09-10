@@ -34,7 +34,11 @@ on a live production page, `.rams-masthead` set its origin with `padding-left:
 origin with `border: 1px` and landed its children at x=23. 124 elements on one
 edge, 62 on the other, 1px apart, across every screen of the product.
 
-**Check** · `origin-mechanism` (static) · `near-miss` (runtime)
+**Check** · `near-miss` (runtime) · `origin-mechanism` (static — **DECLARED,
+NOT IMPLEMENTED**; see [docs/law-to-check.md](docs/law-to-check.md). Deciding what
+this check may flag without drowning an adopting codebase in false positives is
+an open design question, and naming it here rather than quietly implementing a
+guess is the honest state.)
 
 ---
 
@@ -113,21 +117,36 @@ you can choose the number of things, choose twelve.
 ## V. ONE RHYTHM PER PAGE
 
 *`repeat(auto-fit, minmax(Xpx, 1fr))` picks its own column count from X and the
-container width. Each distinct X is another rhythm. A page may use three: 160,
-220, 280. Not thirty-one.*
+container width. Each distinct X is another rhythm. A page may use four, and they
+are span widths of the master grid — 192, 296, 400, 608. Not thirty-one.*
 
 **Measured.** daytraders uses **31 distinct minmax minimums**, which at a 1280px
 viewport produce **12 different column counts** — 11, 10, 9, 8, 7, 6, 5, 4, 3
 columns, stacked down one page. Sections whose columns disagree cannot have
 aligned interior edges. This is guaranteed by construction, not by carelessness.
 
-| minmax | 390px | 768px | 1024px | 1280px |
-|---|---|---|---|---|
-| 160 (tight)  | 2 | 4 | 5 | 7 |
-| 220 (normal) | 1 | 3 | 4 | 5 |
-| 280 (wide)   | 1 | 2 | 3 | 4 |
+The permitted minimums are **derived, not chosen**: each is the width of a span
+of the 12-column grid, so `auto-fit` resolves to a column count that divides 12
+at every viewport. That is the whole reason they are legal and 160/220/280 are
+not — the latter resolve to 5, 7, 9 and 11 columns, which no 12-column page can
+align to and which cannot fill a row without an orphan (Law IV).
 
-Three densities, three rhythms, and a reader who can see the page is one object.
+| minmax | span | 390px | 768px | 1024px | 1280px | 1440px |
+|---|---|---|---|---|---|---|
+| 192 (sixth)   | 2 of 12 | 1 | 3 | 4 | 6 | 6 |
+| 296 (quarter) | 3 of 12 | 1 | 2 | 3 | 4 | 4 |
+| 400 (third)   | 4 of 12 | 1 | 1 | 2 | 3 | 3 |
+| 608 (half)    | 6 of 12 | 1 | 1 | 1 | 2 | 2 |
+
+Four densities, four rhythms, every one of them a divisor of 12, and a reader who
+can see the page is one object.
+
+**This law said 160 / 220 / 280 until 2026-09-10.** Those are the three values
+`lint/scale.mjs` names in its own comment as counter-examples, so a page obeying
+the law failed `grid-density` on every line. `self-check.mjs` reported "all
+derivations hold" the entire time, because it verified `scale.mjs` against itself
+and never read this file. `lint/laws-check.mjs` now reads it — see
+[docs/law-to-check.md](docs/law-to-check.md).
 
 **Check** · `grid-density`
 
