@@ -7,8 +7,18 @@
 Rams gave Braun ten principles. These are ten laws for the screen. A principle
 is something you agree with. A law is something that fails your build.
 
+Where "MoMA rules" comes from, and the century of design history it stands
+on — Mondrian's closed vocabulary, the Bauhaus's insistence that a design
+survive being executed by someone else, Le Corbusier's derived module, Mies's
+square corner, Rams's ten counted principles, MoMA's own uncodified house
+style — is in [docs/design-history.md](docs/design-history.md).
+
 Every law below has a **check** — the rule id that enforces it. A law without a
 check is a wish, and wishes are why the last three MoMA passes did not hold.
+
+![The Ten Laws — Fig. 01](docs/figures/fig-01-the-moma-rules.png)
+*Fig. 01 — geometry, grid, alignment, human: the four groups, and the
+prose → check → CI → runtime chain that separates a law from a style guide.*
 
 ---
 
@@ -36,6 +46,10 @@ edge, 62 on the other, 1px apart, across every screen of the product.
 
 **Check** · `origin-mechanism` (static) · `near-miss` (runtime)
 
+![One Origin — Fig. 02](docs/figures/fig-02-one-origin.png)
+*Fig. 02 — border (wrong) moves the child 1px; inset shadow (right) paints
+without occupying space. Same intent, different mechanism, different edge.*
+
 ---
 
 ## II. THE SCALE
@@ -60,6 +74,10 @@ frequent (4–24, the inside of a card) and sparse where they are rare (64–160
 the space between sections). A linear scale wastes resolution at the top.
 
 **Check** · `spacing-scale`
+
+![Close the Set — Fig. 03](docs/figures/fig-03-close-the-set.png)
+*Fig. 03 — 86 open values vs. the closed 15: `0 4 8 12 16 20 24 32 40 48 64
+80 96 120 160`, plus the type pairs 11/16 · 14/20 · 32/36 (Law III).*
 
 ---
 
@@ -107,6 +125,14 @@ Twelve is the friendliest count on a page: it divides by 2, 3, 4, and 6. Where
 you can choose the number of things, choose twelve.
 
 **Check** · `orphan-grid` (runtime)
+
+![The Grid, Computed — Fig. 04](docs/figures/fig-04-the-grid-computed.png)
+*Fig. 04 — `12 × 88 + 11 × 16 + 2 × 24 = 1280`. The page width is a
+consequence of the column/gutter/margin values, never a chosen input.*
+
+![Curate to Fit the Grid — Fig. 05](docs/figures/fig-05-curate-to-fit-the-grid.png)
+*Fig. 05 — `N % C == 0` or the grid is unfinished: 7÷4 and 8÷3 orphan,
+8÷4 and 9÷3 fill. The four legal densities at 1280px: 192 / 296 / 400 / 608.*
 
 ---
 
@@ -160,6 +186,10 @@ screen, which is why it survives every prose-only design pass.
 
 **Check** · `near-miss` (runtime)
 
+![No Near Miss — Fig. 06](docs/figures/fig-06-no-near-miss.png)
+*Fig. 06 — the edge band: Δ0 alignment, Δ1–6px the amateur mark, Δ>6px an
+intentional offset. Right: same skeleton (Law VI) vs. a ragged row.*
+
 ---
 
 ## VIII. ONE HAIRLINE
@@ -199,3 +229,10 @@ outweighs the datum, the hierarchy is inverted.
 **Check** · human review (this is the one law a machine cannot check, which is
 why it is last — and why the other nine are automated, so attention is left over
 for this one.)
+
+---
+
+![A Law Without a Check Is a Wish — Fig. 07](docs/figures/fig-07-law-without-a-check.png)
+*Fig. 07 — the prose-only pass propagates nothing and fails silently; the
+executable canon runs `scale.mjs` → static lint → CI → browser audit, and the
+baseline debt is a one-way valve — it may only shrink.*
