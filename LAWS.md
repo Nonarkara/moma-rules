@@ -69,6 +69,9 @@ the space between sections). A linear scale wastes resolution at the top.
 
 ## III. SIZE AND LEADING ARE ONE TOKEN
 
+Reader-facing proof: [docs/typography.md](docs/typography.md). This adds
+context, medium and script checks; the executable token law remains below.
+
 *Three type sizes — micro 11/16, body 14/20, display 32/36. A size may never be
 chosen independently of its leading.*
 

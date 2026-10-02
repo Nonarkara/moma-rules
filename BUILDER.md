@@ -1,5 +1,9 @@
 # The Builder's Method
 
+For type decisions, read [Type has a reader](docs/typography.md) and
+[the portable skill](skills/bringhurst-contextual-type/SKILL.md). Proof actual
+content and scripts; Law III's machine pass does not certify readable text.
+
 **How this repository expects you to work.** Read this before the design law. The
 law tells you what a good surface looks like; this tells you how one gets made.
 Skip it and you will follow the rules and still build the wrong thing.

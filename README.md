@@ -1,5 +1,8 @@
 # MoMA Rules
 
+[Type has a reader](docs/typography.md): Bringhurst-inspired proof complements
+Law III's executable size/leading discipline without replacing it.
+
 **Dr Non's layout canon, in a form that executes.**
 
 > "MoMA rules dictate that everything has to be aligned and there should be no
