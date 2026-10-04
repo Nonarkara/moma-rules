@@ -13,7 +13,8 @@ back. This repository is the fourth attempt, and the difference is that here the
 rules are **arithmetic and checks**, not advice.
 
 **[→ The demonstration page](examples/index.html)** · **[→ The Ten Laws](LAWS.md)** ·
-**[→ Why the lines still don't align](docs/why-lines-dont-align.md)**
+**[→ Why the lines still don't align](docs/why-lines-dont-align.md)** ·
+**[→ Design slop: field evidence from 44 flood apps](docs/design-slop-field-guide.md)**
 
 > **[`docs/law-to-check.md`](docs/law-to-check.md) — the laws audited against their
 > own checks (2026-09-10).** Six real machine checks, one declared-unimplemented,
