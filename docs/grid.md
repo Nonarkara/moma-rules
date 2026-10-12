@@ -1,3 +1,5 @@
+English · [简体中文](grid.zh-CN.md) · [ไทย](grid.th.md)
+
 # The Grid, computed
 
 Nothing on this page is a preference. Every number is derived from four
@@ -141,3 +143,9 @@ rule is excellent and should be kept. Only the frame changes — Law I:
 
 Both draw an identical frame. Only the second leaves the children on the page's
 origin.
+
+## What the demonstration page actually lays out
+
+The CSS above is what `examples/index.html` uses. That file also sets `box-sizing: border-box` on every element. Measured on 2026-10-12, headless Chrome, viewport 1280×900, dark theme: the page’s border box is 1232px, padding is 24px each side, and the inner measure is 1184px.
+
+`lint/scale.mjs` still says the page is 1280: content 1232 plus two margins of 24. Under `border-box`, that border box appears only if `max-width` is the page, 1280, not the content, 1232. The arithmetic in this document is the source of truth. The demonstration file does not yet lay the page out at 1280. The static linter does not look at `max-width`, so CI stays green.

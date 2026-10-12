@@ -1,3 +1,5 @@
+English · [简体中文](BUILDER.zh-CN.md) · [ไทย](BUILDER.th.md)
+
 # The Builder's Method
 
 For type decisions, read [Type has a reader](docs/typography.md) and
@@ -198,5 +200,8 @@ That distinction generalises past layout. Everywhere in this method where a rule
 matters — the human model, the test, the second reviewer — look for the form of
 it that executes. The prose version is the version that quietly stops being true.
 
-`npm run lint` and `npm run audit` are the checks. [`LAWS.md`](LAWS.md) is the
-reasoning behind each one.
+The checks that exist are `npm run lint` (`node lint/moma-lint.mjs .`),
+`npm run check` (`node lint/self-check.mjs` only), and `node lint/laws-check.mjs`,
+which CI runs and which no npm script wraps. There is no `npm run audit`.
+The runtime half is a paste of [`audit/near-miss.browser.js`](audit/near-miss.browser.js)
+into a laid-out page. [`LAWS.md`](LAWS.md) is the reasoning behind each one.

@@ -1,3 +1,5 @@
+English · [简体中文](typography.zh-CN.md) · [ไทย](typography.th.md)
+
 # Type has a reader / MoMA Rules
 
 Dr Non's interpretation of Robert Bringhurst, *The Elements of Typographic
@@ -33,6 +35,22 @@ An unreadable essential explanation blocks release. Show the failed specimen
 and request a documented project exception rather than silently adding a fourth
 size or claiming that Law III guarantees usability. The existing `type-scale`
 check verifies token discipline, not typographic fitness or human authorship.
+It matches a bare `font-size: Npx`. It does not read `line-height`, and it does
+not see `clamp()`. `lint/laws-check.mjs` captures the leading in `micro 11/16`
+and never compares it to `LEADING` in `lint/scale.mjs`.
+
+## What the demonstration page sets
+
+Rendered 2026-10-12, viewport 1280×900. The body is IBM Plex Sans at 14px / 20px,
+which is the body token. The title is `clamp(32px, 7vw, 64px)` with
+`line-height: 1.02`, computed at 64px / 65.28px, weight 700. That is a fourth
+size. `node lint/moma-lint.mjs examples --strict` reported 0 violations the same
+day. Law III did not fail, because the check cannot see this declaration.
+
+The micro labels on that page are uppercase, with tracking. MoMA’s institutional
+voice does not do this — see [moma-vs-us.md](moma-vs-us.md). Thai and Chinese
+do not inherit Latin tracking or case. A translation that letter-spaces Thai,
+or uppercases Chinese, has already failed the reader this note is about.
 
 ## Source and reuse
 

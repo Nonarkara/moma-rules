@@ -1,3 +1,5 @@
+English · [简体中文](LAWS.zh-CN.md) · [ไทย](LAWS.th.md)
+
 # The Ten Laws
 
 > "MoMA rules dictate that everything has to be aligned and there should be no
@@ -221,3 +223,7 @@ outweighs the datum, the hierarchy is inverted.
 **Check** · human review (this is the one law a machine cannot check, which is
 why it is last — and why the other nine are automated, so attention is left over
 for this one.)
+
+---
+
+The Chinese edition is [LAWS.zh-CN.md](LAWS.zh-CN.md). The Thai edition is [LAWS.th.md](LAWS.th.md). They carry the same numbers. `lint/laws-check.mjs` reads this English file, and only this file. If a number disagrees, this file and `lint/scale.mjs` win.
