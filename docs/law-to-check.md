@@ -1,3 +1,5 @@
+English · [简体中文](law-to-check.zh-CN.md) · [ไทย](law-to-check.th.md)
+
 # Law → check → research
 
 **Audited:** 2026-09-10 · reproducible with `node lint/laws-check.mjs`
@@ -13,12 +15,15 @@ turned out to be true and unwelcome:
 1. **Law I's static check does not exist.** `origin-mechanism` is named in
    `LAWS.md` and implemented nowhere. The founding law — the one the repository
    is named for — is enforced by a wish.
-2. **Four laws are enforced only by pasting a script into a console.** The CI job
-   runs the static linter and the self-check. It never runs the runtime auditor,
-   so Laws I, IV, VI and VII have no automated enforcement at all.
-3. **Two checks contradict the law they enforce.** Following Law V to the letter
-   produces three `grid-density` violations. Using the emphasis weights Law VIII
-   itself endorses produces two `hairline` violations.
+2. **Four laws are enforced only by pasting a script into a console.** CI runs
+   the static linter on `examples/`, `lint/self-check.mjs`, and `lint/laws-check.mjs`.
+   It never runs the runtime auditor, so Laws I, IV, VI and VII have no automated
+   enforcement at all.
+3. **One check still contradicts the law it enforces.** Using the emphasis
+   weights Law VIII itself cites produces `hairline` violations. A second
+   contradiction — Law V mandating 160 / 220 / 280 — was real on the morning of
+   this audit and was closed the same day. The record of that failure is kept
+   below. It is not the current text of `LAWS.md`.
 
 ---
 
@@ -31,15 +36,17 @@ turned out to be true and unwelcome:
 | **II** The scale | `spacing-scale` | yes | yes | yes |
 | **III** Size + leading are one token | `type-scale` | partial | yes | **checks size only** |
 | **IV** The grid fills | `orphan-grid` (runtime) | yes | **no** | yes |
-| **V** One rhythm per page | `grid-density` | yes | yes | **no — see below** |
+| **V** One rhythm per page | `grid-density` | yes | yes | **yes — corrected 2026-09-10** |
 | **VI** Same skeleton | `ragged-row` (runtime) | yes | **no** | yes |
 | **VII** No near miss | `near-miss` (runtime) | yes | **no** | yes |
 | **VIII** One hairline | `hairline` | yes | yes | **no — see below** |
 | **IX** Zero radius | `radius-zero` | yes | yes | yes |
 | **X** Never say a number twice | human review | n/a | n/a | by design |
 
-Six real machine checks, one phantom, one partial, four outside CI, two in
-conflict with their own law.
+Eight check ids are implemented. `type-scale` is one of them and reads size
+only. `origin-mechanism` is named and not written. Laws I, IV, VI and VII have
+no run in CI. Law VIII still contradicts the emphasis weights it cites. Law V
+agreed with `lint/scale.mjs` from 2026-09-10.
 
 ---
 
@@ -134,8 +141,44 @@ hat.
 
 ---
 
-## Also found
+## Also found, on the day of the audit
 
-- `lint/moma-lint.mjs:10` and `audit/near-miss.browser.js:13` both reference
-  `audit/near-miss.mjs` (Playwright). That file does not exist. The runtime half
-  has no programmatic runner, which is why it is not in CI.
+An earlier sentence of this page said `lint/moma-lint.mjs` and
+`audit/near-miss.browser.js` both name `audit/near-miss.mjs`. They do not.
+The linter points at `audit/near-miss.browser.js`. That file says there is no
+programmatic runner, which is why the runtime half is not in CI. Nothing in
+`lint/` or `audit/` refers to `audit/near-miss.mjs`.
+
+## Read again, 2026-10-12
+
+`examples/index.html` was rendered in headless Chrome, viewport 1280×900,
+`data-theme="dark"`, IBM Plex loaded. The same day,
+`node lint/moma-lint.mjs examples --strict` reported 0 violations.
+
+| What | Measured |
+|---|---|
+| `h1` | 64px / 65.28px, weight 700. The declaration is `clamp(32px, 7vw, 64px)` and `line-height: 1.02`. |
+| The two frames | bordered child `+1px`; inset-shadow child `0px` |
+| `.page` | border box 1232px, padding 24px + 24px, inner measure 1184px |
+| `.quote` | `border-left-width: 1px`, `padding-left: 16px` |
+
+The title is a fourth size the `type-scale` check cannot see, because the check
+matches a bare `font-size: Npx` and this declaration is a `clamp()`. The quote
+rule is the displacement Law I forbids, at a weight `hairline` allows.
+`origin-mechanism` is the check that would have to notice, and it is not
+written.
+
+`lint/laws-check.mjs` captures the leading half of `micro 11/16` and does not
+compare it to `LEADING`. `type-scale` never reads `line-height`.
+
+`lint/moma-lint.mjs` walks `.tsx`, `.ts`, `.jsx`, `.js`, `.css`, `.scss` and
+`.html`. It does not read `.mjs`, so the checker does not check itself.
+
+Law X tells the category label to be “a 9px eyebrow”. 9 is not in `TYPE`
+(11 / 14 / 32). A declaration `font-size: 9px` fails `type-scale`. The sentence
+prescribes a size the rest of the system forbids. It is left here as found.
+
+`package.json` has two scripts. `lint` runs `node lint/moma-lint.mjs .`.
+`check` runs `node lint/self-check.mjs` only. There is no `audit` script.
+CI, in `.github/workflows/moma.yml`, runs the strict lint of `examples/`,
+`self-check`, and `laws-check`. It does not paste the browser script.

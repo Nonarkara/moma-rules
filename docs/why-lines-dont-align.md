@@ -1,3 +1,5 @@
+English · [简体中文](why-lines-dont-align.zh-CN.md) · [ไทย](why-lines-dont-align.th.md)
+
 # Why the lines still don't align
 
 *A forensic report. Every number here was measured on production on 2026-09-08,
@@ -125,8 +127,8 @@ ambient state of a page with 86 spacing values and 31 column rhythms.
 
 **Alignment cannot be fixed element by element.** Every local correction
 redistributes the error. It can only be fixed by closing the value sets — one
-origin, fifteen spacings, three densities — and then holding them closed with a
-check that runs on every commit.
+origin, fifteen spacings, four densities (192, 296, 400, 608) — and then holding
+them closed with a check that runs on every commit.
 
 That is what this repository is.
 
@@ -139,16 +141,19 @@ That is what this repository is.
 | rules live in prose | — | `lint/` in CI, baseline that may only shrink |
 | open spacing set | II | `spacing-scale` |
 | origin off-scale | I | `spacing-scale` on the token |
-| hairline displaces children | I | `origin-mechanism` |
+| hairline displaces children | I | `origin-mechanism`, named in LAWS.md, not implemented |
 | 31 column rhythms | V | `grid-density` |
 | orphan cells | IV | `orphan-grid` (runtime) |
 | ragged rows | VI | `ragged-row` (runtime) |
 | 1–6px drift | VII | `near-miss` (runtime) |
 
-The static half runs on source in CI. The runtime half runs against a rendered
-page, because the near-miss, the orphan and the ragged row do not exist until
-the browser has done the layout — which is exactly why reading the code has
-never caught them.
+The static half can run on source. CI runs it on `examples/`, then
+`lint/self-check.mjs` and `lint/laws-check.mjs`. The runtime half does not run
+until someone pastes `audit/near-miss.browser.js` into a console. The near-miss,
+the orphan and the ragged row do not exist until the browser has done the
+layout — which is why reading the code has never caught them.
+`origin-mechanism`, the check named for the hairline that displaces its
+children, is still not implemented.
 
 ## Method
 
