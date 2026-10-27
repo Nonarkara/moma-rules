@@ -112,3 +112,12 @@ The other two editions of this cover carry the same numbers and the same gaps. T
 ![A manga panel: a cat under an amber umbrella, a small square robot at its side, rain as vertical rules, a twelve-column pavement.](docs/closing-panel.jpg)
 
 A plate for the end of the book. A cat, an umbrella, a small robot. It is not a diagram of the laws. The pavement is a grid, the collar is a luggage tag, and one stone does not sit with the others. Made for this edition. Not a scan of a printed comic.
+
+## Task geometry
+
+[Decision geometry](DECISION-GEOMETRY.md) is part of the spatial law: prevent an
+oversized region from stretching its parent, pushing the task down and separating
+its controls. The [portable measurement gate](tools/decision-geometry/README.md)
+checks project-authored budgets, including preservation of operating regions.
+It supplements this framework's visual language; it does not restyle it or
+certify an interface from source alone.

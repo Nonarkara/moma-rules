@@ -2,6 +2,13 @@ English · [简体中文](BUILDER.zh-CN.md) · [ไทย](BUILDER.th.md)
 
 # The Builder's Method
 
+
+Read [Decision geometry](DECISION-GEOMETRY.md) before accepting a composition:
+measure the expansion chain and the information/action relationship, preserve
+working content, and prove a task-specific regression budget fails the old fault.
+A palette or source-lint pass cannot substitute for rendered task evidence.
+
+
 For type decisions, read [Type has a reader](docs/typography.md) and
 [the portable skill](skills/bringhurst-contextual-type/SKILL.md). Proof actual
 content and scripts; Law III's machine pass does not certify readable text.

@@ -227,3 +227,14 @@ for this one.)
 ---
 
 The Chinese edition is [LAWS.zh-CN.md](LAWS.zh-CN.md). The Thai edition is [LAWS.th.md](LAWS.th.md). They carry the same numbers. `lint/laws-check.mjs` reads this English file, and only this file. If a number disagrees, this file and `lint/scale.mjs` win.
+
+## Task geometry precedes visual compliance
+
+Aligned edges, a correct palette and consistent typography can coexist with a
+spatial failure. A long evidence column must not dictate a neighboring map's
+height without a comparison/operating reason. Tool titles and repeated explanatory
+bands must not push the information/action pair apart. Apply
+[Decision geometry](DECISION-GEOMETRY.md): measure the task, preserve its operating
+regions, falsify the previous failure and close independent review. This is an
+addition to the existing visual language, not permission to remove authored
+artwork, a color field, a live map or necessary source qualifications.
